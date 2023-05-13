@@ -4,45 +4,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alerts.model.DispatchType;
 
-
 public class DispatchStrategy {
-    private DispatchType dispatchType;
-    private String message;
-    private String subject;
-    
-    @Autowired
-    public AlertingService service;
-   
-    public DispatchStrategy(DispatchType dispatchType, String message, String subject) {
-        this.dispatchType = dispatchType;
-        this.message = message;
-        this.subject = subject;
-        this.service = new AlertingService();
-    }
+	private DispatchType dispatchType;
+	private String message;
+	private String subject;
 
-    public DispatchType getDispatchType() {
-        return dispatchType;
-    }
+	@Autowired
+	public AlertingService service;
 
-    public void setDispatchType(DispatchType dispatchType) {
-        this.dispatchType = dispatchType;
-    }
+	public DispatchStrategy(DispatchType dispatchType, String message, String subject) {
+		this.dispatchType = dispatchType;
+		this.message = message;
+		this.subject = subject;
+		this.service = new AlertingService();
+	}
 
-    public String getMessage() {
-        return message;
-    }
+	public DispatchType getDispatchType() {
+		return dispatchType;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public void setDispatchType(DispatchType dispatchType) {
+		this.dispatchType = dispatchType;
+	}
 
-    public String getSubject() {
-        return subject;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 
 	@Override
 	public String toString() {
@@ -82,7 +81,5 @@ public class DispatchStrategy {
 			return false;
 		return true;
 	}
-	
-	
-    
+
 }

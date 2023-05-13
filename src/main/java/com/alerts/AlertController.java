@@ -18,38 +18,36 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alerts.model.Event;
 import com.alerts.model.EventDTO;
 import com.alerts.service.EventService;
-import com.alerts.service.MonitoringService;
 
 @RestController
 @RequestMapping("/api")
 public class AlertController {
 
 	@Autowired
-    private final EventService eventService;
+	private final EventService eventService;
 
 	private static final Logger LOG = getLogger(AlertController.class.getName());
 
-    public AlertController(EventService eventService) {
-        this.eventService = eventService;
-    }
+	public AlertController(EventService eventService) {
+		this.eventService = eventService;
+	}
 
-    @PostMapping("/event")
-    public ResponseEntity<Void> createEvent(@RequestBody EventDTO eventDTO) {
-    	eventService.createEvent(eventDTO.getClient(), eventDTO.getEventType());
-        return ResponseEntity.ok().build();
-    }
+	@PostMapping("/event")
+	public ResponseEntity<Void> createEvent(@RequestBody EventDTO eventDTO) {
+		eventService.createEvent(eventDTO.getClient(), eventDTO.getEventType());
+		return ResponseEntity.ok().build();
+	}
 
-    @GetMapping("/events/{client}/{eventType}")
-    public ResponseEntity<List<Event>> getEvents(@PathVariable String client, @PathVariable String eventType) {
-        List<Event> events = eventService.getEvents(client, eventType);
-        return ResponseEntity.ok(events);
-    }
+	@GetMapping("/events/{client}/{eventType}")
+	public ResponseEntity<List<Event>> getEvents(@PathVariable String client, @PathVariable String eventType) {
+		List<Event> events = eventService.getEvents(client, eventType);
+		return ResponseEntity.ok(events);
+	}
 
-    @DeleteMapping("/events/{client}/{eventType}")
-    public ResponseEntity<Void> clearEvents(@PathVariable String client, @PathVariable String eventType) {
-        eventService.clearEvents(client, eventType);
-        return ResponseEntity.ok().build();
-    }
-    
-   
+	@DeleteMapping("/events/{client}/{eventType}")
+	public ResponseEntity<Void> clearEvents(@PathVariable String client, @PathVariable String eventType) {
+		eventService.clearEvents(client, eventType);
+		return ResponseEntity.ok().build();
+	}
+
 }

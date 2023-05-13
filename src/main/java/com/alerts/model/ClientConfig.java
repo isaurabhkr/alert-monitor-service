@@ -1,49 +1,50 @@
 package com.alerts.model;
+
 import java.util.List;
 
 import com.alerts.service.DispatchStrategy;
 
 public class ClientConfig {
-    private final String client;
-    private final EventType eventType;
-    private final AlertType alertType;
-    private final int count;
-    private final int windowSizeInSecs;
-    private final List<DispatchStrategy> dispatchStrategies;
+	private final String client;
+	private final EventType eventType;
+	private final AlertType alertType;
+	private final int count;
+	private final int windowSizeInSecs;
+	private final List<DispatchStrategy> dispatchStrategies;
 
-    public ClientConfig(String client, EventType eventType, AlertType alertType, int count, int windowSizeInSecs,
-            List<DispatchStrategy> dispatchStrategies) {
-        this.client = client;
-        this.eventType = eventType;
-        this.alertType = alertType;
-        this.count = count;
-        this.windowSizeInSecs = windowSizeInSecs;
-        this.dispatchStrategies = dispatchStrategies;
-    }
+	public ClientConfig(String client, EventType eventType, AlertType alertType, int count, int windowSizeInSecs,
+			List<DispatchStrategy> dispatchStrategies) {
+		this.client = client;
+		this.eventType = eventType;
+		this.alertType = alertType;
+		this.count = count;
+		this.windowSizeInSecs = windowSizeInSecs;
+		this.dispatchStrategies = dispatchStrategies;
+	}
 
-    public String getClient() {
-        return client;
-    }
+	public String getClient() {
+		return client;
+	}
 
-    public EventType getEventType() {
-        return eventType;
-    }
+	public EventType getEventType() {
+		return eventType;
+	}
 
-    public AlertType getAlertType() {
-        return alertType;
-    }
+	public AlertType getAlertType() {
+		return alertType;
+	}
 
-    public int getCount() {
-        return count;
-    }
+	public int getCount() {
+		return count;
+	}
 
-    public int getWindowSizeInSecs() {
-        return windowSizeInSecs;
-    }
+	public int getWindowSizeInSecs() {
+		return windowSizeInSecs;
+	}
 
-    public List<DispatchStrategy> getDispatchStrategies() {
-        return dispatchStrategies;
-    }
+	public List<DispatchStrategy> getDispatchStrategies() {
+		return dispatchStrategies;
+	}
 
 	@Override
 	public String toString() {
@@ -93,6 +94,5 @@ public class ClientConfig {
 			return false;
 		return true;
 	}
-    
-    
+
 }
