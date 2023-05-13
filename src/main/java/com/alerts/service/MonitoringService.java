@@ -38,7 +38,7 @@ public class MonitoringService {
 		this.eventTimeMap = new ConcurrentHashMap<>();
 		this.eventCountMap = new ConcurrentHashMap<>();
 
-		alertConfigs = ClientLoader.loadClientConfigs("src/main/resources/application.properties");
+		alertConfigs = ClientLoader.loadClientConfigs("src/main/resources/client.properties");
 
 		// Initialize alertConfigMap with given alertConfigs
 		for (ClientConfig alertConfig : alertConfigs) {
@@ -71,28 +71,43 @@ public class MonitoringService {
 
 		// Handle TUMBLING_WINDOW alert type
 		if (alertConfig.getAlertType() == AlertType.TUMBLING_WINDOW) {
-			Queue<Long> eventTimeQueue = clientEventTimeMap.get(eventType);
-			long windowStartTime = currentTime - alertConfig.getWindowSizeInSecs() * 1000;
-			while (!eventTimeQueue.isEmpty() && eventTimeQueue.peek() < windowStartTime) {
-				eventTimeQueue.poll();
-			}
-			int eventCount = eventTimeQueue.size();
-			if (eventCount >= alertConfig.getCount()) {
-				dispatchAlert(client, eventType, alertConfig);
-			}
+		    Queue<Long> eventTimeQueue = clientEventTimeMap.get(eventType);
+		    long windowStartTime = (currentTime / (60 * 60 * 1000)) * (60 * 60 * 1000); // Round off to the nearest hour
+		    long windowEndTime = windowStartTime + alertConfig.getWindowSizeInSecs() * 1000; // Calculate the end time of the window
+
+		    // Check the number of events in the current window
+		    int eventCount = 0;
+		    for (long eventTime : eventTimeQueue) {
+		        if (eventTime < windowEndTime && eventTime > windowStartTime) {
+		            eventCount++;
+		        }
+		    }
+		    
+		    // If the number of events exceeds the alert threshold, trigger an alert
+		    if (eventCount >= alertConfig.getCount()) {
+		        dispatchAlert(client, eventType, alertConfig);
+		    }
 		}
+
 
 		// Handle SLIDING_WINDOW alert type
 		if (alertConfig.getAlertType() == AlertType.SLIDING_WINDOW) {
-			Queue<Long> eventTimeQueue = clientEventTimeMap.get(eventType);
-			long windowStartTime = currentTime - alertConfig.getWindowSizeInSecs() * 1000;
-			while (!eventTimeQueue.isEmpty() && eventTimeQueue.peek() < windowStartTime) {
-				eventTimeQueue.poll();
-			}
-			int eventCount = eventTimeQueue.size();
-			if (eventCount >= alertConfig.getCount()) {
-				dispatchAlert(client, eventType, alertConfig);
-			}
+		    Queue<Long> eventTimeQueue = clientEventTimeMap.get(eventType);
+		    long windowEndTime = currentTime;
+		    long windowStartTime = windowEndTime - alertConfig.getWindowSizeInSecs() * 1000;
+		    
+		    // Remove events that occurred before the start time of the current window
+		    while (!eventTimeQueue.isEmpty() && eventTimeQueue.peek() < windowStartTime) {
+		        eventTimeQueue.poll();
+		    }
+		    
+		    // Check the number of events in the current window
+		    int eventCount = eventTimeQueue.size();
+		    
+		    // If the number of events exceeds the alert threshold, trigger an alert
+		    if (eventCount >= alertConfig.getCount()) {
+		        dispatchAlert(client, eventType, alertConfig);
+		    }
 		}
 	}
 

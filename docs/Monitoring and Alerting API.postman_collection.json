@@ -11,13 +11,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/health",
+					"raw": "http://localhost:8080/manage/health",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"manage",
 						"health"
 					]
 				}
@@ -82,7 +83,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"client\" :\"client1\",\r\n    \"eventType\" : \"USERSERVICE_EXCEPTION\"\r\n}",
+					"raw": "{\r\n    \"client\" :\"client2\",\r\n    \"eventType\" : \"USERSERVICE_EXCEPTION\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

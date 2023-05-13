@@ -23,7 +23,7 @@ We can break down the problem into the following components:
  * Maven
  
 ## Using the API
-Simply start the app and make a HTTP GET request to http://localhost:8080/health and you will get a JSON response if app is UP.
+Simply start the app and make a HTTP GET request to http://localhost:8080/manage/health and you will get a JSON response if app is UP.
 
 
 ## How To
