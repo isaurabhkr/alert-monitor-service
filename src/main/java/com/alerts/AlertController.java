@@ -35,7 +35,7 @@ public class AlertController {
 	@PostMapping("/event")
 	public ResponseEntity<Void> createEvent(@RequestBody EventDTO eventDTO) {
 		eventService.createEvent(eventDTO.getClient(), eventDTO.getEventType());
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
 
 	@GetMapping("/events/{client}/{eventType}")
@@ -47,7 +47,7 @@ public class AlertController {
 	@DeleteMapping("/events/{client}/{eventType}")
 	public ResponseEntity<Void> clearEvents(@PathVariable String client, @PathVariable String eventType) {
 		eventService.clearEvents(client, eventType);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
 
 }

@@ -17,7 +17,6 @@ import com.alerts.service.DispatchStrategy;
 @Service
 public class ClientLoader {
 	private static final String CLIENT_PROP_PREFIX = "client.";
-	private static final String EVENT_TYPE_PROP_PREFIX = ".eventType";
 	private static final String ALERT_TYPE_PROP_PREFIX = ".alertType";
 	private static final String ALERT_COUNT_PROP_PREFIX = ".alertCount";
 	private static final String ALERT_WINDOW_SIZE_PROP_PREFIX = ".alertWindowSize";
@@ -34,9 +33,9 @@ public class ClientLoader {
 
 			if (key.startsWith(CLIENT_PROP_PREFIX)) {
 				String client = key.substring(CLIENT_PROP_PREFIX.length()).split("[.]", 0)[0];
+				String eventTypeStr = key.substring(CLIENT_PROP_PREFIX.length()).split("[.]", 0)[1];
 				key = key.split("[.]", 0)[0];
-
-				String eventTypeStr = props.getProperty(key + "." + client + EVENT_TYPE_PROP_PREFIX);
+				
 				EventType eventType = EventType.valueOf(eventTypeStr);
 
 				String alertTypeStr = props.getProperty(key + "." + client + "." + eventType + ALERT_TYPE_PROP_PREFIX);
@@ -71,7 +70,6 @@ public class ClientLoader {
 						dispatchStrategies));
 			}
 		}
-
 		return clientConfigs.stream().distinct().collect(Collectors.toList());
 	}
 }
