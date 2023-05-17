@@ -1,4 +1,4 @@
-package com.alerts;
+package com.alerts.controller;
 
 import static org.slf4j.LoggerFactory.getLogger;
 

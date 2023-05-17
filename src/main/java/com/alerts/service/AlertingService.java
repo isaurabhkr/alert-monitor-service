@@ -14,7 +14,7 @@ public class AlertingService {
 
 	public static DispatchEmail dispatchEmail = new DispatchEmail();
 
-	private static final Logger LOG = getLogger(AlertingService.class.getName());
+	static final Logger LOG = getLogger(AlertingService.class.getName());
 
 	public void dispatch(DispatchType dispatchType, String message, String subject) {
 		switch (dispatchType) {

@@ -23,8 +23,23 @@ We can break down the problem into the following components:
  * Maven
  
 ## Using the API
-Simply start the app and make a HTTP GET request to http://localhost:8080/manage/health and you will get a JSON response if app is UP.
+Simply start the app and make a HTTP GET request to http://localhost:8080/health and you will get a JSON response if app is UP.
 
+## Sample Client Configuration
+```
+client.client1.PAYMENT_EXCEPTION.eventType=PAYMENT_EXCEPTION
+client.client1.PAYMENT_EXCEPTION.alertType=SLIDING_WINDOW
+client.client1.PAYMENT_EXCEPTION.alertCount=3
+client.client1.PAYMENT_EXCEPTION.alertWindowSize=10
+
+client.client1.PAYMENT_EXCEPTION.dispatchStrategy.type[0]=EMAIL
+client.client1.PAYMENT_EXCEPTION.dispatchStrategy.message[0]=payment exception threshold breached
+client.client1.PAYMENT_EXCEPTION.dispatchStrategy.subject[0]=payment exception threshold breached
+
+client.client1.PAYMENT_EXCEPTION.dispatchStrategy.type[1]=CONSOLE
+client.client1.PAYMENT_EXCEPTION.dispatchStrategy.message[1]=issue in payment
+client.client1.PAYMENT_EXCEPTION.dispatchStrategy.subject[1]=issue in payment
+```
 
 ## How To
 
